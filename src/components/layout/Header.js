@@ -5,7 +5,7 @@ export default function Header() {
     return (
         <header style={headerStyle}>
             <h1>Publication Viewer</h1>
-            <Link style={linkStyle} to="/">Home</Link> | <Link style={linkStyle} to="/about">About</Link>
+            <Link style={linkStyle} to="/">Home</Link> | <Link style={linkStyle} to="/about">Login</Link>
         </header>
     )
 }

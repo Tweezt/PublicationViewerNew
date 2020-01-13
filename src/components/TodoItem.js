@@ -15,11 +15,15 @@ export class TodoItem extends Component {
         const {id, title} = this.props.todo;
         return (
             <div style={this.getStyle()}>
-                <p>
-                    <input type="checkbox" onChange={this.props.markComplete.bind(this, id)}/>
-                    {title}
-                    <button onClick={this.props.delTodo.bind(this, id)} style={btnStyle}>x</button>
-                </p>
+                
+                    <input style = {checkboxStyle} type="checkbox" onChange={this.props.markComplete.bind(this, id)}/>
+                        <div  style ={columnStyle}>
+                            <div style = {rowStyle}>{title}</div>
+                            <div style = {row2Style}>kolumna 2</div>
+                            <div style = {row2Style}>kolumna 3</div>
+                        </div>
+                    <button onClick={this.props.delTodo.bind(this, id)} style={btnStyle}>Open</button>
+                
             </div>
         )
     }
@@ -33,13 +37,32 @@ TodoItem.propTypes = {
 }
 
 const btnStyle = {
-    background: '#ff0000',
+    background: '#555',
     color: '#fff',
     border: 'none',
     padding: '5px 9px',
-    borderRadius: '50%',
+    borderRadius: '30%',
     cursor: 'pointer',
     float: 'right'
 }
+
+const columnStyle = {
+    display: 'inline'
+}
+
+const rowStyle = {
+    float: 'left',
+    width: '50%'
+}
+const row2Style = {
+    float: 'left',
+    width: '20%'
+}
+
+const checkboxStyle = {
+    float: 'left',
+    width: '10px'
+}
+
 
 export default TodoItem
