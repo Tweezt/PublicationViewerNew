@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route} from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Todos from './components/Todos';
 import Header from './components/layout/Header';
@@ -33,27 +34,13 @@ markComplete = (id) => {
   })})
 }
 
+popupClose = () =>{ this.setState({popupShown: false});};
+
 delTodo = (id) => {
  // axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
  // .then(res => this.setState({ todos: [...this.state.todos.filter(todo => todo.id !==id)] }));
  
  this.setState({popupShown: true})
-
- let popupClose = () => this.setState({popupShown: false});
- return(
-// React.createElement(
-//   PopupModal,
-//   {
-//     show: this.state.popupShown,
-//     onHide: popupClose
-//   },
-//   null
-// )
-  <PopupModal   
-  show = {this.state.popupShown}
-  hide = {popupClose}
-  />
- );
 }
 
 addTodo = (title) => {
@@ -74,6 +61,10 @@ addTodo = (title) => {
           <AddTodo addTodo={this.addTodo}/>
           <Todos todos={this.state.todos} markComplete={this.markComplete}
           delTodo={this.delTodo}/>
+          <PopupModal   
+          show = {this.state.popupShown}
+          onHide = {this.popupClose}
+          />
          </React.Fragment>
         )} />
         <Route path="/about" component={About} />
