@@ -17,7 +17,8 @@ import axios from 'axios';
 class App extends Component {
 state = {
   todos: [],
-  popupShown : false
+  popupShown : false,
+  idToShow : 0
 }
 
 componentDidMount(){
@@ -41,6 +42,7 @@ delTodo = (id) => {
  // .then(res => this.setState({ todos: [...this.state.todos.filter(todo => todo.id !==id)] }));
  
  this.setState({popupShown: true})
+ this.setState({idToShow: id})
 }
 
 addTodo = (title) => {
@@ -64,6 +66,7 @@ addTodo = (title) => {
           <PopupModal   
           show = {this.state.popupShown}
           onHide = {this.popupClose}
+          idPassed = {this.state.idToShow}
           />
          </React.Fragment>
         )} />

@@ -22,7 +22,7 @@ class PopupModal extends Component{
       </Modal.Header>
       <Modal.Body>
         <div className="container">
-            content TODO :v
+            ID: {this.props.idPassed}
         </div>
       </Modal.Body>
       <Modal.Footer>
