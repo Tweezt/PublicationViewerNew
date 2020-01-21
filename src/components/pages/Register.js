@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
-import "./About.css";
-import { Link } from 'react-router-dom'
+import "./Register.css";
 
-export default function About(props) {
+export default function Register(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
 
   function validateForm() {
     return email.length > 0 && password.length > 0;
@@ -16,7 +16,7 @@ export default function About(props) {
   }
 
   return (
-    <div className="Login">
+    <div className="Register">
       <form onSubmit={handleSubmit}>
         <FormGroup controlId="email" bsSize="large">
           <FormLabel>Email</FormLabel>
@@ -35,16 +35,18 @@ export default function About(props) {
             type="password"
           />
         </FormGroup>
+        <FormGroup controlId="passwordConfirm" bsSize="large">
+          <FormLabel>Repeat Password</FormLabel>
+          <FormControl
+            value={passwordConfirm}
+            onChange={e => setPasswordConfirm(e.target.value)}
+            type="password"
+          />
+        </FormGroup>
         <Button block bsSize="large" disabled={!validateForm()} type="submit">
-          Login
+          Register
         </Button>
-        <div><Link style={linkStyle} to="/register">Register</Link></div>
       </form>
     </div>
   );
-}
-
-const linkStyle = {
-  color: '#000',
-  textDecoration: 'none'
 }

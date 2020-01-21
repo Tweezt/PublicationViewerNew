@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 
 export class AddTodo extends Component {
     state = {
@@ -16,6 +15,7 @@ onChange = (e) => this.setState({[e.target.name]: e.target.value});
 
     render() {
         return (
+            <div>
             <form onSubmit={this.onSubmit} style={{ display: 'flex'}}>
                 <input 
                 type="text"
@@ -31,13 +31,38 @@ onChange = (e) => this.setState({[e.target.name]: e.target.value});
                 className="btn"
                 style={{flex: '1'}}
                 />
+            
             </form>
+                <div style={columnStyle}>
+            <div style={(rowStyle, rowMainStyle)}><b>Title</b></div>
+            <div style={(row2Style, rowMainStyle)}><b>Points</b></div>
+            <div style={(row2Style, rowMainStyle)}><b>ISSN</b></div>
+            <div style={(row2Style, rowMainStyle)}><b>e-ISSN</b></div>
+                </div>
+            </div>
         )
     }
 }
 
-AddTodo.propTypes = {
-    addTodo: PropTypes.func.isRequired
-}
+const rowMainStyle = {
+    padding: "10px"
+  };
+
+  const columnStyle = {
+    //   display: "inline"
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between"
+  };
+
+  const rowStyle = {
+    // float: "left",
+    //   width: "50%"
+  };
+  const row2Style = {
+    //   float: "left",
+    //   width: "20%"
+  };
+
 
 export default AddTodo
