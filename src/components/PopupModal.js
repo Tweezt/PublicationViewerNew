@@ -53,7 +53,7 @@ class PopupModal extends Component{
                   Title: 
                 </Form.Label>
                 <Col sm="10">
-                  <Form.Control plaintext readOnly defaultValue={this.props.idpassed} />
+                  <Form.Control plaintext readOnly defaultValue="Example title" />
                 </Col>
               </Form.Group>
             </Form>
