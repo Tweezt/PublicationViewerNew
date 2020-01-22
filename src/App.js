@@ -66,7 +66,7 @@ addTodo = (title) => {
           <PopupModal   
           show = {this.state.popupShown}
           onHide = {this.popupClose}
-          idPassed = {this.state.idToShow}
+          idpassed = {this.state.idToShow}
           />
          </React.Fragment>
         )} />

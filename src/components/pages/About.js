@@ -18,7 +18,7 @@ export default function About(props) {
   return (
     <div className="Login">
       <form onSubmit={handleSubmit}>
-        <FormGroup controlId="email" bsSize="large">
+        <FormGroup controlId="email" bssize="large">
           <FormLabel>Email</FormLabel>
           <FormControl
             autoFocus
@@ -27,7 +27,7 @@ export default function About(props) {
             onChange={e => setEmail(e.target.value)}
           />
         </FormGroup>
-        <FormGroup controlId="password" bsSize="large">
+        <FormGroup controlId="password" bssize="large">
           <FormLabel>Password</FormLabel>
           <FormControl
             value={password}
@@ -35,7 +35,7 @@ export default function About(props) {
             type="password"
           />
         </FormGroup>
-        <Button block bsSize="large" disabled={!validateForm()} type="submit">
+        <Button block bssize="large" disabled={!validateForm()} type="submit">
           Login
         </Button>
         <div><Link style={linkStyle} to="/register">Register</Link></div>

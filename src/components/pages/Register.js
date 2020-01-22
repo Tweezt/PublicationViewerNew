@@ -18,7 +18,7 @@ export default function Register(props) {
   return (
     <div className="Register">
       <form onSubmit={handleSubmit}>
-        <FormGroup controlId="email" bsSize="large">
+        <FormGroup controlId="email" bssize="large">
           <FormLabel>Email</FormLabel>
           <FormControl
             autoFocus
@@ -27,7 +27,7 @@ export default function Register(props) {
             onChange={e => setEmail(e.target.value)}
           />
         </FormGroup>
-        <FormGroup controlId="password" bsSize="large">
+        <FormGroup controlId="password" bssize="large">
           <FormLabel>Password</FormLabel>
           <FormControl
             value={password}
@@ -35,7 +35,7 @@ export default function Register(props) {
             type="password"
           />
         </FormGroup>
-        <FormGroup controlId="passwordConfirm" bsSize="large">
+        <FormGroup controlId="passwordConfirm" bssize="large">
           <FormLabel>Repeat Password</FormLabel>
           <FormControl
             value={passwordConfirm}
@@ -43,7 +43,7 @@ export default function Register(props) {
             type="password"
           />
         </FormGroup>
-        <Button block bsSize="large" disabled={!validateForm()} type="submit">
+        <Button block bssize="large" disabled={!validateForm()} type="submit">
           Register
         </Button>
       </form>
