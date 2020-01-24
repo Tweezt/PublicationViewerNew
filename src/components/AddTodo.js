@@ -18,49 +18,7 @@ onChange = (e) => this.setState({[e.target.name]: e.target.value});
     render() {
         return (
             <div>
-                <div>
-                <Form.Row>
-    {/* <Form.Group as={Col} controlId="formGridRadios">
-    <Form.Label>Sort by: </Form.Label>
-      <Form.Check inline label="Title" type="radio" id={`inline-radio-1`} />
-      <Form.Check inline label="ISSN" type="radio" id={`inline-radio-2`} />
-    </Form.Group> */}
-
-    <Form.Group as={Col} controlId="formGridState">
-      <Form.Label>Point range: </Form.Label>
-      <Form.Control as="select">
-        <option>Choose...</option>
-        <option>...</option>
-      </Form.Control>
-    </Form.Group>
-
-<Form.Group as={Col}>
-      <Form.Label as="legend" column sm={2}>
-        Radios
-      </Form.Label>
-      <Col sm={10}>
-        <Form.Check
-          type="radio"
-          label="first radio"
-          name="formHorizontalRadios"
-          id="formHorizontalRadios1"
-        />
-        <Form.Check
-          type="radio"
-          label="second radio"
-          name="formHorizontalRadios"
-          id="formHorizontalRadios2"
-        />
-        <Form.Check
-          type="radio"
-          label="third radio"
-          name="formHorizontalRadios"
-          id="formHorizontalRadios3"
-        />
-      </Col>
-    </Form.Group>
-  </Form.Row>
-                </div>
+                
             <form onSubmit={this.onSubmit} style={{ display: 'flex'}}>
                 <input 
                 type="text"
@@ -78,6 +36,51 @@ onChange = (e) => this.setState({[e.target.name]: e.target.value});
                 />
             
             </form>
+            <div>
+                <Form.Row>
+    {/* <Form.Group as={Col} controlId="formGridRadios">
+    <Form.Label>Sort by: </Form.Label>
+      <Form.Check inline label="Title" type="radio" id={`inline-radio-1`} />
+      <Form.Check inline label="ISSN" type="radio" id={`inline-radio-2`} />
+    </Form.Group> */}
+
+    <Form.Group as={Col} controlId="formGridState">
+    <Form.Label as="legend" column sm={4}>
+        Point range
+      </Form.Label>
+      <Form.Control as="select">
+        <option>Choose...</option>
+        <option>...</option>
+      </Form.Control>
+    </Form.Group>
+
+<Form.Group as={Col}>
+      <Form.Label as="legend" column sm={2}>
+        Radios
+      </Form.Label>
+      <Col sm={10}>
+        <Form.Check
+          type="radio"
+          inline label="first radio"
+          name="formHorizontalRadios"
+          id="formHorizontalRadios1"
+        />
+        <Form.Check
+          type="radio"
+          inline label="second radio"
+          name="formHorizontalRadios"
+          id="formHorizontalRadios2"
+        />
+        <Form.Check
+          type="radio"
+          inline label="third radio"
+          name="formHorizontalRadios"
+          id="formHorizontalRadios3"
+        />
+      </Col>
+    </Form.Group>
+  </Form.Row>
+                </div>
                 <div style={columnStyle}>
             <div style={(rowStyle, rowMainStyle)}><b>Title</b></div>
             <div style={(row2Style, rowMainStyle)}><b>Points</b></div>
