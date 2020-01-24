@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Magazines from "./components/Magazines";
 import Header from "./components/layout/Header";
-import AddTodo from "./components/AddTodo";
+import FilterMagazine from "./components/FilterMagazine";
 import About from "./components/pages/About";
 import Register from "./components/pages/Register";
 import PopupModal from "./components/PopupModal";
@@ -51,6 +51,26 @@ class App extends Component {
     }
   };
 
+  searchMagazines = params => {
+    const { title, minPoints, maxPoints } = params;
+    let url = "http://publisher.freesher.ct8.pl/magazines/?limit=30&page=1";
+    if (title !== undefined) {
+      url += `&title=${title}`;
+    }
+    if (minPoints !== undefined) {
+      url += `&minPoints=${minPoints}`;
+    }
+    if (maxPoints !== undefined) {
+      url += `&maxPoints=${maxPoints}`;
+    }
+    Axios.get(url)
+      .then(res => res.data.magazines)
+      .then(magazines => {
+        this.setState({ magazines });
+      });
+    console.log("Url", url);
+  };
+
   render() {
     return (
       <Router>
@@ -62,7 +82,7 @@ class App extends Component {
               path="/"
               render={props => (
                 <React.Fragment>
-                  <AddTodo addTodo={this.addTodo} />
+                  <FilterMagazine searchMagazines={this.searchMagazines} />
                   <Magazines
                     magazines={this.state.magazines}
                     showMagazinePopUp={this.showMagazinePopUp}
