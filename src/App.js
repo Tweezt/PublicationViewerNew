@@ -25,7 +25,8 @@ class App extends Component {
       isNext: false,
       limit: 5,
       actualPage: 1,
-      fetchingUrl: `http://localhost:3000/magazines`,
+      //   fetchingUrl: `http://localhost:3000/magazines`,
+      fetchingUrl: "http://publisher.freesher.ct8.pl/magazines",
       searchTitle: undefined,
       searchMinPoints: undefined,
       searchMaxPoints: undefined
@@ -37,9 +38,6 @@ class App extends Component {
   };
 
   showMagazinePopUp = id => {
-    // axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
-    // .then(res => this.setState({ todos: [...this.state.todos.filter(todo => todo.id !==id)] }));
-
     this.setState({ popupShown: true, idToShow: id });
   };
   nextPage = async () => {

@@ -4,29 +4,31 @@ import { Row, Col, Form } from "react-bootstrap";
 import Axios from "axios";
 
 class PopupModal extends Component {
-  //  constructor(props){
-  //      super(props);
-  //  }
-  state = {
-    magazine: {
-      _id: 0,
-      Title1: "",
-      Title2: "",
-      issn: "",
-      issn2: "",
-      e_issn: "",
-      e_issn2: "",
-      Points: [{ Year: "", Value: "" }],
-      Categories: [""]
-    }
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      magazine: {
+        _id: "",
+        Title1: "",
+        Title2: "",
+        issn: "",
+        issn2: "",
+        e_issn: "",
+        e_issn2: "",
+        Points: [{ Year: "", Value: "" }],
+        Categories: [""]
+      }
+    };
+  }
 
   componentDidMount() {
     if (this.props.show) {
-      Axios.get(`http://localhost:3000/magazines/${this.props.idpassed}`)
+      //Axios.get(`http://localhost:3000/magazines/${this.props.idpassed}`)
+      Axios.get(
+        `http://publisher.freesher.ct8.pl/magazines/${this.props.idpassed}`
+      )
         .then(res => res.data)
         .then(data => {
-          console.log(data["_id"]);
           this.setState({ magazine: data });
         })
         .catch(err => console.error(err));
