@@ -18,13 +18,15 @@ class Magazines extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.magazines.map(magazine => (
-              <MagazineItem
-                key={magazine._id}
-                magazine={magazine}
-                showMagazine={this.props.showMagazinePopUp}
-              />
-            ))}
+            {this.props.magazines.map(magazine => {
+              return (
+                <MagazineItem
+                  key={magazine["_id"]}
+                  magazine={magazine}
+                  showMagazine={this.props.showMagazinePopUp}
+                />
+              );
+            })}
           </tbody>
         </Table>
       </React.Fragment>

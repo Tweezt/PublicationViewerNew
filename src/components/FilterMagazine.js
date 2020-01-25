@@ -10,6 +10,7 @@ export class FilterMagazine extends Component {
 
   onSubmit = e => {
     e.preventDefault();
+    console.log("State filtermagazine", this.state);
     this.props.searchMagazines({
       title: this.state.title,
       minPoints: this.state.minPoints,
@@ -17,7 +18,7 @@ export class FilterMagazine extends Component {
     });
   };
 
-  onChange = e => this.setState({ [e.target.name]: e.target.value });
+  onChange = e => this.setState({ title: e.target.value });
   onChangeRange = e => {
     const option = e.target.options[e.target.selectedIndex].value;
 

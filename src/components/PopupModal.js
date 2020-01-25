@@ -21,13 +21,12 @@ class PopupModal extends Component {
     }
   };
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.show) {
-      Axios.get(
-        `http://publisher.freesher.ct8.pl/magazines/${this.props.idpassed}`
-      )
+      Axios.get(`http://localhost:3000/magazines/${this.props.idpassed}`)
         .then(res => res.data)
         .then(data => {
+          console.log(data["_id"]);
           this.setState({ magazine: data });
         })
         .catch(err => console.error(err));
@@ -58,7 +57,11 @@ class PopupModal extends Component {
                   ID:
                 </Form.Label>
                 <Col sm="10">
-                  <Form.Control plaintext readOnly defaultValue={1} />
+                  <Form.Control
+                    plaintext
+                    readOnly
+                    defaultValue={this.state.magazine["_id"]}
+                  />
                 </Col>
               </Form.Group>
 
