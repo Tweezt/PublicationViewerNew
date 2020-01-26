@@ -22,7 +22,7 @@ export default function Register(props) {
     return (
       login.length > 0 &&
       password.length > 0 &&
-      passwordConfirm > 0 &&
+      passwordConfirm.length > 0 &&
       firstName.length > 0 &&
       lastName.length > 0
     );
