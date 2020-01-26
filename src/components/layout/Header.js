@@ -19,7 +19,7 @@ export default class Header extends Component {
   buildLogoutLink = () => {
     if (this.props.isAuthenticated) {
       return (
-        <Link style={linkStyle} to="/logout">
+        <Link style={linkStyle} onClick={this.props.onLogout()} to="/">
           Logout
         </Link>
       );
