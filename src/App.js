@@ -11,6 +11,7 @@ import MagazineList from "./components/MagazineList";
 //import uuid from "uuid";
 
 import "./App.css";
+import FavoriteMagazineList from "./components/pages/FavoriteMagazineList";
 
 class App extends Component {
   constructor() {
@@ -61,6 +62,7 @@ class App extends Component {
               render={props => <Login onLogin={this.onLogin} />}
             />
             <Route path="/register" component={Register} />
+            <Route path="/favorites" component={FavoriteMagazineList} />
           </div>
         </div>
       </Router>

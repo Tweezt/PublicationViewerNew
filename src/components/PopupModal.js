@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Modal, Button } from "react-bootstrap";
-import { Row, Col, Form } from "react-bootstrap";
+import { Row, Col, Form, Alert } from "react-bootstrap";
 import Axios from "axios";
 
 class PopupModal extends Component {
@@ -17,27 +17,83 @@ class PopupModal extends Component {
         e_issn2: "",
         Points: [{ Year: "", Value: "" }],
         Categories: [""]
-      }
+      },
+      isMessage: false,
+      messageContent: "",
+      isFavorite: false
     };
   }
+  fetchingFavorites = () => {
+    // Axios.get(`http://localhost:3000/magazines/${this.props.idpassed}`)
+    Axios.get(
+      `http://publisher.freesher.ct8.pl/magazines/${this.props.idpassed}`
+    )
+      .then(res => res.data)
+      .then(data => {
+        this.setState({ magazine: data, isFavorite: this.props.isfavorite });
+      })
+      .catch(err => console.error(err));
+  };
 
   componentDidMount() {
     if (this.props.show) {
-      // Axios.get(`http://localhost:3000/magazines/${this.props.idpassed}`)
-      Axios.get(
-        `http://publisher.freesher.ct8.pl/magazines/${this.props.idpassed}`
-      )
-        .then(res => res.data)
-        .then(data => {
-          this.setState({ magazine: data });
-        })
-        .catch(err => console.error(err));
+      this.fetchingFavorites();
     }
   }
-  handleSubmit(event) {
-    event.preventDefault();
-  }
+  addToFavorites = () => {
+    console.log("adding...");
+    let userId = localStorage.getItem("id");
+    const body = {
+      userId: userId,
+      magazineId: this.state.magazine["_id"]
+    };
+    //Axios.post("http://localhost:3000/favorites/", body)
+    Axios.post("http://publisher.ct8.pl/favorites/", body)
 
+      .then(res => res.data)
+      .then(data => {
+        this.setState({
+          isMessage: true,
+          messageContent: data.message,
+          isFavorite: true
+        });
+        console.log("END...");
+      })
+      .catch(err => {
+        console.error(err);
+        this.setState({
+          isMessage: true,
+          messageContent: err.response.data.message
+        });
+      });
+  };
+  removeFromFavorites = () => {
+    let userId = localStorage.getItem("id");
+    const body = {
+      userId: userId,
+      magazineId: this.state.magazine["_id"]
+    };
+    console.log("Removing...");
+    Axios.delete("http://publisher.freesher.ct8.pl/favorites/", {
+      data: body
+    })
+      .then(res => res.data)
+      .then(data => {
+        this.setState({
+          isMessage: true,
+          messageContent: data.message,
+          isFavorite: false
+        });
+        console.log("END...");
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({
+          isMessage: true,
+          messageContent: err.response.data.message
+        });
+      });
+  };
   render() {
     return (
       <Modal
@@ -48,7 +104,10 @@ class PopupModal extends Component {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Publication details
+            <p>Publication details</p>
+            <Alert variant="primary" show={this.state.isMessage}>
+              {this.state.messageContent}
+            </Alert>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -160,10 +219,28 @@ class PopupModal extends Component {
         </Modal.Body>
         <Modal.Footer>
           <Button
-            onClick={this.handleSubmit}
-            className={!this.props.isAuthenticated ? "hidden" : ""}
+            type="button"
+            onClick={() => this.addToFavorites()}
+            className={
+              this.props.isAuthenticated === false ||
+              this.state.isFavorite === true
+                ? "hidden"
+                : ""
+            }
           >
             Add to favorites
+          </Button>
+          <Button
+            type="button"
+            onClick={() => this.removeFromFavorites()}
+            className={
+              this.props.isAuthenticated === false ||
+              this.state.isFavorite === false
+                ? "hidden"
+                : ""
+            }
+          >
+            Remove from favorites
           </Button>
           <Button onClick={this.props.onHide}>Close</Button>
         </Modal.Footer>

@@ -49,6 +49,7 @@ class MagazineList extends Component {
           show={this.state.popupShown}
           onHide={this.popupClose}
           idpassed={this.state.idToShow}
+          isfavorite={false}
         />
       );
     }
