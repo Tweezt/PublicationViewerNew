@@ -19,7 +19,8 @@ class MagazineList extends Component {
       fetchingUrl: "http://publisher.freesher.ct8.pl/magazines",
       searchTitle: undefined,
       searchMinPoints: undefined,
-      searchMaxPoints: undefined
+      searchMaxPoints: undefined,
+      sortOption: undefined
     };
   }
   popupClose = () => {
@@ -62,7 +63,8 @@ class MagazineList extends Component {
       searchMaxPoints,
       searchMinPoints,
       searchTitle,
-      fetchingUrl
+      fetchingUrl,
+      sortOption
     } = this.state;
 
     let baseUrl = `${fetchingUrl}?limit=${limit}&page=${actualPage}`;
@@ -74,6 +76,9 @@ class MagazineList extends Component {
     }
     if (searchMaxPoints !== undefined) {
       baseUrl += `&maxPoints=${searchMaxPoints}`;
+    }
+    if (sortOption !== undefined) {
+      baseUrl += `&sortOption=${sortOption}`;
     }
 
     Axios.get(baseUrl)
@@ -95,26 +100,8 @@ class MagazineList extends Component {
         return data.magazines;
       })
       .then(magazines => {
-        if (this.state.sortOption === "NameASC") {
-          magazines = magazines.sort(this.compareByNameASC);
-          this.setState({ magazines });
-          console.log("End fetching");
-        }
-        if (this.state.sortOption === "NameDESC") {
-          magazines = magazines.sort(this.compareByNameDESC);
-          this.setState({ magazines });
-          console.log("End fetching");
-        }
-        if (this.state.sortOption === "PointsASC") {
-          magazines = magazines.sort(this.compareByPointsASC);
-          this.setState({ magazines });
-          console.log("End fetching");
-        }
-        if (this.state.sortOption === "PointsDESC") {
-          magazines = magazines.sort(this.compareByPointsDESC);
-          this.setState({ magazines });
-          console.log("End fetching");
-        }
+        this.setState({ magazines });
+        console.log("End fetching");
       });
   };
   searchMagazines = async params => {
@@ -131,22 +118,12 @@ class MagazineList extends Component {
     if (maxPoints !== undefined) {
       await this.setState({ searchMaxPoints: maxPoints });
     }
+
     await this.setState({ sortOption });
 
     this.fetchingMagazine();
   };
-  compareByNameASC = (a, b) => {
-    return a.Title1.toLowerCase() > b.Title1.toLowerCase() ? 1 : -1;
-  };
-  compareByNameDESC = (a, b) => {
-    return a.Title1.toLowerCase() < b.Title1.toLowerCase() ? 1 : -1;
-  };
-  compareByPointsASC = (a, b) => {
-    return a.Points[0].Value > b.Points[0].Value ? 1 : -1;
-  };
-  compareByPointsDESC = (a, b) => {
-    return a.Points[0].Value < b.Points[0].Value ? 1 : -1;
-  };
+
   render() {
     return (
       <React.Fragment>

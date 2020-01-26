@@ -16,6 +16,7 @@ export default function Login(props) {
   const [password, setPassword] = useState("");
   const [isMessage, setMessage] = useState(false);
   const [message, setMessageContent] = useState("");
+  const [messageType, setMessageType] = useState("primary");
   const [isLogin, setIsLogin] = useState(false);
 
   function validateForm() {
@@ -38,9 +39,11 @@ export default function Login(props) {
       await localStorage.setItem("id", result.data.data.id);
       await props.onLogin(result.data.data.id);
       setIsLogin(true);
+      setMessageType("success");
     } catch (err) {
       console.log();
       setMessage(true);
+      setMessageType("danger");
       if (typeof err.response === "undefined") {
         setMessageContent(err.message);
       } else {
@@ -55,7 +58,7 @@ export default function Login(props) {
   }
   return (
     <div className="Login">
-      <Alert variant="primary" show={isMessage}>
+      <Alert variant={messageType} show={isMessage}>
         {message}
       </Alert>
       <form onSubmit={handleSubmit}>
