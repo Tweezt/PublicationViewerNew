@@ -23,10 +23,10 @@ class PopupModal extends Component {
 
   componentDidMount() {
     if (this.props.show) {
-      Axios.get(`http://localhost:3000/magazines/${this.props.idpassed}`)
-        // Axios.get(
-        //   `http://publisher.freesher.ct8.pl/magazines/${this.props.idpassed}`
-        // )
+      // Axios.get(`http://localhost:3000/magazines/${this.props.idpassed}`)
+      Axios.get(
+        `http://publisher.freesher.ct8.pl/magazines/${this.props.idpassed}`
+      )
         .then(res => res.data)
         .then(data => {
           this.setState({ magazine: data });

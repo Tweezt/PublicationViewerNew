@@ -20,25 +20,19 @@ class App extends Component {
     };
   }
   componentDidMount() {
-    console.log("Mount");
     let userId = localStorage.getItem("id");
-    console.log(userId);
-    if (userId !== "undefined") {
+
+    if (typeof userId !== "undefined" && userId !== "undefined") {
       this.setState({ isAuthenticated: true, userId });
     }
   }
 
   onLogin = async id => {
-    console.log("id", id);
-    console.log("Onlogin udalo sie");
     await this.setState({ isAuthenticated: true, userId: id });
-    console.log(this.state);
   };
   onLogout = async id => {
-    console.log("lgouts");
     await localStorage.setItem("id", "undefined");
     await this.setState({ isAuthenticated: false, userId: undefined });
-    console.log(this.state);
   };
 
   render() {
