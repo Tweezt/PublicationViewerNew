@@ -26,14 +26,13 @@ export default function Login(props) {
     event.preventDefault();
     //
     try {
-      // const result = await Axios.post("http://localhost:3000/user/login", {
-      const result = await Axios.post(
-        "http://publisher.freesher.ct8.pl/user/login",
-        {
-          login,
-          password
-        }
-      );
+      const result = await Axios.post("http://localhost:3000/user/login", {
+        // const result = await Axios.post(
+        // "http://publisher.freesher.ct8.pl/user/login",
+        // {
+        login,
+        password
+      });
       console.log(result.data.data.id);
       await localStorage.setItem("id", result.data.data.id);
       await props.onLogin(result.data.data.id);

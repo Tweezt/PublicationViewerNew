@@ -23,10 +23,10 @@ class PopupModal extends Component {
 
   componentDidMount() {
     if (this.props.show) {
-      // Axios.get(`http://localhost:3000/magazines/${this.props.idpassed}`)
-      Axios.get(
-        `http://publisher.freesher.ct8.pl/magazines/${this.props.idpassed}`
-      )
+      Axios.get(`http://localhost:3000/magazines/${this.props.idpassed}`)
+        // Axios.get(
+        //   `http://publisher.freesher.ct8.pl/magazines/${this.props.idpassed}`
+        // )
         .then(res => res.data)
         .then(data => {
           this.setState({ magazine: data });
@@ -159,7 +159,12 @@ class PopupModal extends Component {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.handleSubmit}>Add to favorites</Button>
+          <Button
+            onClick={this.handleSubmit}
+            className={!this.props.isAuthenticated ? "hidden" : ""}
+          >
+            Add to favorites
+          </Button>
           <Button onClick={this.props.onHide}>Close</Button>
         </Modal.Footer>
       </Modal>

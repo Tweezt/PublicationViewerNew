@@ -22,7 +22,8 @@ class App extends Component {
   componentDidMount() {
     console.log("Mount");
     let userId = localStorage.getItem("id");
-    if (typeof userId !== "undefined") {
+    console.log(userId);
+    if (userId !== "undefined") {
       this.setState({ isAuthenticated: true, userId });
     }
   }
@@ -35,6 +36,7 @@ class App extends Component {
   };
   onLogout = async id => {
     console.log("lgouts");
+    await localStorage.setItem("id", "undefined");
     await this.setState({ isAuthenticated: false, userId: undefined });
     console.log(this.state);
   };
@@ -48,7 +50,13 @@ class App extends Component {
               isAuthenticated={this.state.isAuthenticated}
               onLogout={this.onLogout}
             />
-            <Route exact path="/" render={props => <MagazineList />} />
+            <Route
+              exact
+              path="/"
+              render={props => (
+                <MagazineList isAuthenticated={this.state.isAuthenticated} />
+              )}
+            />
             <Route
               path="/login"
               render={props => <Login onLogin={this.onLogin} />}
