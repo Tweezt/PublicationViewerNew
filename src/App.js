@@ -21,8 +21,13 @@ class App extends Component {
   }
   componentDidMount() {
     let userId = localStorage.getItem("id");
-
-    if (typeof userId !== "undefined" && userId !== "undefined") {
+    console.log(userId);
+    if (
+      typeof userId !== "undefined" &&
+      userId !== "undefined" &&
+      userId !== null &&
+      userId !== "null"
+    ) {
       this.setState({ isAuthenticated: true, userId });
     }
   }
