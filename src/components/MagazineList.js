@@ -15,7 +15,7 @@ class MagazineList extends Component {
       isNext: false,
       limit: 5,
       actualPage: 1,
-      //fetchingUrl: `http://localhost:3000/magazines`,
+      // fetchingUrl: `http://localhost:3000/magazines`,
       fetchingUrl: "http://publisher.freesher.ct8.pl/magazines",
       searchTitle: undefined,
       searchMinPoints: undefined,

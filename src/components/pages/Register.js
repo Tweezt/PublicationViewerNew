@@ -60,6 +60,7 @@ export default function Register(props) {
         password
       };
       Axios.post("http://publisher.freesher.ct8.pl/user/signup", userObj)
+        // Axios.post("http://localhost:3000/user/signup", userObj)
         .then(res => res.data)
         .then(res => {
           console.log(res);

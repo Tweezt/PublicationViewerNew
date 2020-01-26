@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Header from "./components/layout/Header";
@@ -19,23 +20,25 @@ class App extends Component {
     };
   }
   componentDidMount() {
+    console.log("Mount");
     let userId = localStorage.getItem("id");
     if (typeof userId !== "undefined") {
       this.setState({ isAuthenticated: true, userId });
-    } else {
-      this.setState({ isAuthenticated: false });
     }
   }
 
-  onLogin = () => {
-    let userId = localStorage.getItem("id");
-    this.setState({ isAuthenticated: true, userId });
+  onLogin = async id => {
+    console.log("id", id);
+    console.log("Onlogin udalo sie");
+    await this.setState({ isAuthenticated: true, userId: id });
+    console.log(this.state);
+  };
+  onLogout = async id => {
+    console.log("lgouts");
+    await this.setState({ isAuthenticated: false, userId: undefined });
+    console.log(this.state);
   };
 
-  onLogout = () => {
-    localStorage.setItem("id", undefined);
-    this.setState({ isAuthenticated: false, userId: undefined });
-  };
   render() {
     return (
       <Router>

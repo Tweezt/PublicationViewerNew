@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {
   Button,
   FormGroup,
@@ -7,37 +8,51 @@ import {
   Alert
 } from "react-bootstrap";
 import "./Login.css";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Axios from "axios";
-import { useHistory } from "react-router-dom";
+
 export default function Login(props) {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [isMessage, setMessage] = useState(false);
   const [message, setMessageContent] = useState("");
-  const history = useHistory();
+  const [isLogin, setIsLogin] = useState(false);
+
   function validateForm() {
     return login.length > 0 && password.length > 0;
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    Axios.post("http://publisher.freesher.ct8.pl/user/login", {
-      login,
-      password
-    })
-      .then(res => res.data)
-      .then(data => {
-        localStorage.setItem("id", data.id);
-        //  this.props.onLogin();
-        history.push("/");
-      })
-      .catch(err => {
-        setMessage(true);
+    //
+    try {
+      // const result = await Axios.post("http://localhost:3000/user/login", {
+      const result = await Axios.post(
+        "http://publisher.freesher.ct8.pl/user/login",
+        {
+          login,
+          password
+        }
+      );
+      console.log(result.data.data.id);
+      await localStorage.setItem("id", result.data.data.id);
+      await props.onLogin(result.data.data.id);
+      setIsLogin(true);
+    } catch (err) {
+      console.log();
+      setMessage(true);
+      if (typeof err.response === "undefined") {
+        setMessageContent(err.message);
+      } else {
         setMessageContent(err.response.data.message);
-      });
+      }
+    }
   }
-
+  function redirect() {
+    if (isLogin) {
+      return <Redirect to="/" />;
+    }
+  }
   return (
     <div className="Login">
       <Alert variant="primary" show={isMessage}>
@@ -64,6 +79,7 @@ export default function Login(props) {
         <Button block bssize="large" disabled={!validateForm()} type="submit">
           Login
         </Button>
+        {redirect()}
         <div>
           <Link style={linkStyle} to="/register">
             Register
