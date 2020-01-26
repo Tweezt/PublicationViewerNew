@@ -48,7 +48,7 @@ class PopupModal extends Component {
       magazineId: this.state.magazine["_id"]
     };
     //Axios.post("http://localhost:3000/favorites/", body)
-    Axios.post("http://publisher.ct8.pl/favorites/", body)
+    Axios.post("http://publisher.freesher.ct8.pl/favorites/", body)
 
       .then(res => res.data)
       .then(data => {
@@ -61,10 +61,12 @@ class PopupModal extends Component {
       })
       .catch(err => {
         console.error(err);
-        this.setState({
-          isMessage: true,
-          messageContent: err.response.data.message
-        });
+        if (typeof err.response !== "undefined") {
+          this.setState({
+            isMessage: true,
+            messageContent: err.response.data.message
+          });
+        }
       });
   };
   removeFromFavorites = () => {
@@ -88,10 +90,12 @@ class PopupModal extends Component {
       })
       .catch(err => {
         console.log(err);
-        this.setState({
-          isMessage: true,
-          messageContent: err.response.data.message
-        });
+        if (typeof err.response !== "undefined") {
+          this.setState({
+            isMessage: true,
+            messageContent: err.response.data.message
+          });
+        }
       });
   };
   render() {
