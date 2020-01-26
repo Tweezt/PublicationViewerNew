@@ -5,7 +5,8 @@ export class FilterMagazine extends Component {
   state = {
     title: undefined,
     minPoints: undefined,
-    maxPoints: undefined
+    maxPoints: undefined,
+    sortOption: "NameASC"
   };
 
   onSubmit = e => {
@@ -14,7 +15,8 @@ export class FilterMagazine extends Component {
     this.props.searchMagazines({
       title: this.state.title,
       minPoints: this.state.minPoints,
-      maxPoints: this.state.maxPoints
+      maxPoints: this.state.maxPoints,
+      sortOption: this.state.sortOption
     });
   };
 
@@ -29,6 +31,10 @@ export class FilterMagazine extends Component {
     } else {
       this.setState({ minPoints: undefined, maxPoints: undefined });
     }
+  };
+  onChangeRadio = e => {
+    this.setState({ sortOption: e.target.value });
+    console.log(this.state.sortOption);
   };
 
   render() {
@@ -60,21 +66,39 @@ export class FilterMagazine extends Component {
               <Col sm={10}>
                 <Form.Check
                   type="radio"
-                  label="first radio"
+                  label="Name ASC"
+                  value="NameASC"
                   name="formHorizontalRadios"
                   id="formHorizontalRadios1"
+                  onChange={this.onChangeRadio}
+                  checked={this.state.sortOption === "NameASC"}
                 />
                 <Form.Check
                   type="radio"
-                  label="second radio"
+                  label="Name DESC"
+                  value="NameDESC"
                   name="formHorizontalRadios"
                   id="formHorizontalRadios2"
+                  onChange={this.onChangeRadio}
+                  checked={this.state.sortOption === "NameDESC"}
                 />
                 <Form.Check
                   type="radio"
-                  label="third radio"
+                  value="PointsASC"
+                  label="Points ASC"
                   name="formHorizontalRadios"
                   id="formHorizontalRadios3"
+                  onChange={this.onChangeRadio}
+                  checked={this.state.sortOption === "PointsASC"}
+                />
+                <Form.Check
+                  type="radio"
+                  label="Points DESC"
+                  value="PointsDESC"
+                  name="formHorizontalRadios"
+                  id="formHorizontalRadios3"
+                  checked={this.state.sortOption === "PointsDESC"}
+                  onChange={this.onChangeRadio}
                 />
               </Col>
             </Form.Group>

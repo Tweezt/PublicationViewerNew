@@ -95,13 +95,31 @@ class MagazineList extends Component {
         return data.magazines;
       })
       .then(magazines => {
-        this.setState({ magazines });
-        console.log("End fetching");
+        if (this.state.sortOption === "NameASC") {
+          magazines = magazines.sort(this.compareByNameASC);
+          this.setState({ magazines });
+          console.log("End fetching");
+        }
+        if (this.state.sortOption === "NameDESC") {
+          magazines = magazines.sort(this.compareByNameDESC);
+          this.setState({ magazines });
+          console.log("End fetching");
+        }
+        if (this.state.sortOption === "PointsASC") {
+          magazines = magazines.sort(this.compareByPointsASC);
+          this.setState({ magazines });
+          console.log("End fetching");
+        }
+        if (this.state.sortOption === "PointsDESC") {
+          magazines = magazines.sort(this.compareByPointsDESC);
+          this.setState({ magazines });
+          console.log("End fetching");
+        }
       });
   };
   searchMagazines = async params => {
     console.log(params);
-    const { title, minPoints, maxPoints } = params;
+    const { title, minPoints, maxPoints, sortOption } = params;
 
     if (title !== undefined) {
       await this.setState({ searchTitle: title });
@@ -113,8 +131,21 @@ class MagazineList extends Component {
     if (maxPoints !== undefined) {
       await this.setState({ searchMaxPoints: maxPoints });
     }
+    await this.setState({ sortOption });
 
     this.fetchingMagazine();
+  };
+  compareByNameASC = (a, b) => {
+    return a.Title1.toLowerCase() > b.Title1.toLowerCase() ? 1 : -1;
+  };
+  compareByNameDESC = (a, b) => {
+    return a.Title1.toLowerCase() < b.Title1.toLowerCase() ? 1 : -1;
+  };
+  compareByPointsASC = (a, b) => {
+    return a.Points[0].Value > b.Points[0].Value ? 1 : -1;
+  };
+  compareByPointsDESC = (a, b) => {
+    return a.Points[0].Value < b.Points[0].Value ? 1 : -1;
   };
   render() {
     return (
