@@ -132,7 +132,7 @@ export default function Register(props) {
             onChange={e => setLastName(e.target.value)}
           />
         </FormGroup>
-        <FormLabel>*Pole wymagane</FormLabel>
+        <FormLabel>*Required field</FormLabel>
         <Button block bssize="large" disabled={!validateForm()} type="submit">
           Register
         </Button>
