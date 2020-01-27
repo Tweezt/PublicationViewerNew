@@ -3,7 +3,7 @@ import Axios from "axios";
 import Magazines from "./Magazines";
 import FilterMagazine from "./FilterMagazine";
 import PopupModal from "./PopupModal";
-import { ButtonToolbar } from "react-bootstrap";
+import { ButtonToolbar, Alert } from "react-bootstrap";
 class MagazineList extends Component {
   constructor() {
     super();
@@ -20,7 +20,9 @@ class MagazineList extends Component {
       searchTitle: undefined,
       searchMinPoints: undefined,
       searchMaxPoints: undefined,
-      sortOption: undefined
+      sortOption: undefined,
+      isMessage: false,
+      message: ""
     };
   }
   popupClose = () => {
@@ -80,7 +82,7 @@ class MagazineList extends Component {
     if (sortOption !== undefined) {
       baseUrl += `&sortOption=${sortOption}`;
     }
-
+    this.setState({ isMessage: true, message: "Fetching..." });
     Axios.get(baseUrl)
       .then(res => res.data)
       .then(data => {
@@ -100,8 +102,19 @@ class MagazineList extends Component {
         return data.magazines;
       })
       .then(magazines => {
-        this.setState({ magazines });
+        this.setState({ magazines, isMessage: false });
         console.log("End fetching");
+      })
+      .catch(err => {
+        if (typeof err.response.data.message === "undefined") {
+          this.setState({ isMessage: false, message: err });
+          console.error(err);
+        } else {
+          this.setState({
+            isMessage: false,
+            message: err.response.data.message
+          });
+        }
       });
   };
   searchMagazines = async params => {
@@ -128,6 +141,9 @@ class MagazineList extends Component {
     return (
       <React.Fragment>
         <FilterMagazine searchMagazines={this.searchMagazines} />
+        <Alert variant="primary" show={this.state.isMessage}>
+          {this.state.message}
+        </Alert>
         <Magazines
           magazines={this.state.magazines}
           showMagazinePopUp={this.showMagazinePopUp}

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Magazines from "../Magazines";
 import PopupModal from "../PopupModal";
 import Axios from "axios";
-import { Button } from "react-bootstrap";
+import { Button, Alert } from "react-bootstrap";
 class FavoriteMagazineList extends Component {
   constructor(props) {
     super(props);
@@ -11,6 +11,8 @@ class FavoriteMagazineList extends Component {
       magazines: [],
       popupShown: false,
       idToShow: 0,
+      isMessage: false,
+      message: "fetching...",
       // fetchingUrl: `http://localhost:3000/favorites`,
       fetchingUrl: "http://publisher.freesher.ct8.pl/favorites"
     };
@@ -43,13 +45,22 @@ class FavoriteMagazineList extends Component {
   fetchingFavortiesMagazine = () => {
     let url = `${this.state.fetchingUrl}/${this.state.userId}`;
     console.log(url);
+    this.setState({ isMessage: true, message: "fetching..." });
     Axios.get(url)
       .then(res => res.data)
       .then(data => {
-        this.setState({ magazines: data });
+        this.setState({ magazines: data, isMessage: false });
       })
       .catch(err => {
-        console.error(err);
+        if (typeof err.response.data.message === "undefined") {
+          this.setState({ isMessage: false, message: err });
+          console.error(err);
+        } else {
+          this.setState({
+            isMessage: false,
+            message: err.response.data.message
+          });
+        }
       });
   };
   makePdf = () => {
@@ -107,6 +118,9 @@ class FavoriteMagazineList extends Component {
             Make PDF
           </Button>
         </header>
+        <Alert variant="primary" show={this.state.isMessage}>
+          {this.state.message}
+        </Alert>
         <Magazines
           magazines={this.state.magazines}
           showMagazinePopUp={this.showMagazinePopUp}

@@ -16,6 +16,7 @@ export default function Register(props) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [isMessage, setMessage] = useState(false);
+  const [messageType, setMessageType] = useState("primary");
   const [message, setMessageContent] = useState("");
 
   function validateForm() {
@@ -33,6 +34,7 @@ export default function Register(props) {
       if (password !== passwordConfirm) {
         setMessage(true);
         setMessageContent("Password aren't the same");
+        setMessageType("danger");
         return false;
       } else {
         setMessage(false);
@@ -66,19 +68,24 @@ export default function Register(props) {
           console.log(res);
           setMessage(true);
           setMessageContent(res.message);
+          setMessageType("success");
           clearForm();
         })
         .catch(err => {
-          console.log(err.response.data.message);
+          setMessageType("danger");
           setMessage(true);
-          setMessageContent(err.response.data.message);
+          if (typeof err.response === "undefined") {
+            setMessageContent(err.message);
+          } else {
+            setMessageContent(err.response.data.message);
+          }
         });
     }
   }
 
   return (
     <div className="Register">
-      <Alert variant="primary" show={isMessage}>
+      <Alert show={isMessage} variant={messageType}>
         {message}
       </Alert>
       <form onSubmit={handleSubmit}>
