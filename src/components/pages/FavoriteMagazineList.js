@@ -115,7 +115,7 @@ class FavoriteMagazineList extends Component {
         <header style={headerStyle}>
           <h2>Favorites Magazines</h2>
           <Button type="button" onClick={() => this.makePdf()}>
-            Make PDF
+            Export the list as PDF
           </Button>
         </header>
         <Alert variant="primary" show={this.state.isMessage}>

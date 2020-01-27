@@ -50,7 +50,7 @@ export class FilterMagazine extends Component {
 
             <Form.Group as={Col} controlId="formGridState" column sm={5}>
               <Form.Label as="legend" column sm={6}>
-                Point range:{" "}
+                Points range:{" "}
               </Form.Label>
               <Form.Control as="select" onChange={this.onChangeRange}>
                 <option value="">Choice..</option>
@@ -63,7 +63,7 @@ export class FilterMagazine extends Component {
 
             <Form.Group as={Col}>
               <Form.Label as="legend" column sm={2}>
-                Radios
+                Sort by
               </Form.Label>
               <Col sm={10}>
                 <Form.Check
