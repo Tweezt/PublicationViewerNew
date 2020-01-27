@@ -63,7 +63,7 @@ export class FilterMagazine extends Component {
 
             <Form.Group as={Col}>
               <Form.Label as="legend" column sm={2}>
-                Sort by
+                Sort by:
               </Form.Label>
               <Col sm={10}>
                 <Form.Check
