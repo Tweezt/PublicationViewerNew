@@ -48,8 +48,10 @@ export class FilterMagazine extends Component {
       <Form.Check inline label="ISSN" type="radio" id={`inline-radio-2`} />
     </Form.Group> */}
 
-            <Form.Group as={Col} controlId="formGridState">
-              <Form.Label>Point range: </Form.Label>
+            <Form.Group as={Col} controlId="formGridState" column sm={5}>
+              <Form.Label as="legend" column sm={6}>
+                Point range:{" "}
+              </Form.Label>
               <Form.Control as="select" onChange={this.onChangeRange}>
                 <option value="">Choice..</option>
                 <option value="0 39">0-39</option>
@@ -66,6 +68,7 @@ export class FilterMagazine extends Component {
               <Col sm={10}>
                 <Form.Check
                   type="radio"
+                  inline
                   label="Name ASC"
                   value="NameASC"
                   name="formHorizontalRadios"
@@ -75,6 +78,7 @@ export class FilterMagazine extends Component {
                 />
                 <Form.Check
                   type="radio"
+                  inline
                   label="Name DESC"
                   value="NameDESC"
                   name="formHorizontalRadios"
@@ -85,6 +89,7 @@ export class FilterMagazine extends Component {
                 <Form.Check
                   type="radio"
                   value="PointsASC"
+                  inline
                   label="Points ASC"
                   name="formHorizontalRadios"
                   id="formHorizontalRadios3"
@@ -93,6 +98,7 @@ export class FilterMagazine extends Component {
                 />
                 <Form.Check
                   type="radio"
+                  inline
                   label="Points DESC"
                   value="PointsDESC"
                   name="formHorizontalRadios"
